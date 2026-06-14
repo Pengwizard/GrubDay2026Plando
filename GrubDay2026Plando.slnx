@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Files/">
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/workflows/build.yml" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="GrubDay2026Plando/GrubDay2026Plando.csproj" />
+</Solution>
