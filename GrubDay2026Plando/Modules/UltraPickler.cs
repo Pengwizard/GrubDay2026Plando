@@ -53,6 +53,15 @@ namespace GrubDay2026Plando.Modules
 
             private void PostSpawnHooks(GameObject obj)
             {
+                var egg = obj.GetComponent<JellyEgg>();
+                if (egg == null)
+                {
+                    isEnemy = true;
+                } else
+                {
+                    isEnemy = false;
+                }
+
                 if (isEnemy)
                 {
                     if (yBump != 0) obj.transform.SetPositionY(obj.transform.position.y + yBump);
@@ -68,6 +77,8 @@ namespace GrubDay2026Plando.Modules
                     health.SetGeoSmall(0);
                     health.SetGeoMedium(0);
                     health.SetGeoLarge(0);
+
+                    MakeBombImmune(obj);
                 }
                 else
                 {
@@ -169,65 +180,65 @@ namespace GrubDay2026Plando.Modules
             [
             new()
             {
-                spawnCounts = (new(4), new(4)),
-                hpSize = new(400, 500),
+                spawnCounts = (new(5), new(5)),
+                hpSize = new(600),
                 spawn1 = new()
                 {
                     spawner = Preloader.Instance.ArmoredSquitCage.ExtractFromCage,
-                    hp = new(40, 45),
+                    hp = new(45),
                     yBump = 0.3f,
                     yVelBump = 1,
                 },
                 spawn2 = new()
                 {
                     spawner = Preloader.Instance.ArmoredBaldurCage.ExtractFromCage,
-                    hp = new(40, 45),
+                    hp = new(45),
                     yBump = 0.1f,
                 },
                 spawn3 = new()
                 {
                     spawner = Preloader.Instance.PrimalAspidCage.ExtractFromCage,
-                    hp = new(35, 40),
+                    hp = new(45),
                     yBump = 0.25f,
                     yVelBump = 2,
                 }
             },
             new()
             {
-                spawnCounts = (new(2), new(4)),
-                hpSize = new(400, 600),
+                spawnCounts = (new(4), new(8)),
+                hpSize = new(600),
                 spawn1 = new()
                 {
                     spawner = Preloader.Instance.InfectedVengefly.ExtractFromCage,
-                    hp = new(45),
+                    hp = new(80),
                     yBump = 0.25f,
                     yVelBump = 0.25f,
                 },
                 spawn2 = new()
                 {
                     spawner = Preloader.Instance.InfectedVengefly.ExtractFromCage,
-                    hp = new(35),
+                    hp = new(45),
                     yBump = 0.3f,
                     yVelBump = 1,
                 },
                 spawn3 = new()
                 {
                     spawner = Preloader.Instance.InfectedVengefly.ExtractFromCage,
-                    hp = new(40),
+                    hp = new(30),
                     yBump = 0.3f,
                     yVelBump = 1,
                 }
             },
             new()
             {
-                spawnCounts = (new(2), new(5)),
+                spawnCounts = (new(5), new(5)),
                 hpSize = new(500, 500),
                 spawn1 = new()
                 {
-                    spawner = () => Preloader.Instance.Sibling,
-                    hp = new(60),
-                    yBump = 0.25f,
-                    yVelBump = 0.25f,
+                    spawner = Preloader.Instance.InfectedVengefly.ExtractFromCage,
+                    hp = new(30),
+                    yBump = 0.3f,
+                    yVelBump = 1,
                 },
                 spawn2 = new()
                 {
@@ -247,8 +258,8 @@ namespace GrubDay2026Plando.Modules
             },
             new()
             {
-                spawnCounts = (new(4), new(10)),
-                hpSize = new(700, 700),
+                spawnCounts = (new(10), new(20)),
+                hpSize = new(500),
                 spawn1 = new()
                 {
                     spawner = () => Preloader.Instance.JellyEggBomb,
@@ -268,7 +279,47 @@ namespace GrubDay2026Plando.Modules
                     customHook = PopEggBomb
                 }
             },
+            new()
+            {
+                spawnCounts = (new(5), new(10)),
+                hpSize = new(700),
+                spawn1 = new()
+                {
+                    spawner = RandomSpawner,
+                    isEnemy = false,
+                    customHook = PopEggBomb
+                },
+                spawn2 = new()
+                {
+                    spawner = RandomSpawner,
+                    isEnemy = false,
+                    customHook = PopEggBomb
+                },
+                spawn3 = new()
+                {
+                    spawner = RandomSpawner,
+                    isEnemy = false,
+                    customHook = PopEggBomb
+                }
+            },
         ];
+        }
+
+        static Func<GameObject>[] options = new Func<GameObject>[]
+        {
+                () => Preloader.Instance.JellyEggBomb,
+                () => Preloader.Instance.JellyEggBomb,
+                Preloader.Instance.InfectedVengefly.ExtractFromCage,
+                () => Preloader.Instance.GreatHuskSentry,
+                () => Preloader.Instance.Sibling,
+        };
+
+        private static GameObject RandomSpawner()
+        {
+            int check = UnityEngine.Random.Range(0, 5);
+
+
+            return options[check]();
         }
 
         private readonly List<JarSpawnThreshold> thresholds = SpawnLists();
@@ -355,15 +406,50 @@ namespace GrubDay2026Plando.Modules
 
         private const float OBLOBBLE_SCALE = 0.6f;
 
+        private static void MakeBombImmune(GameObject obj)
+        {
+            obj.AddComponent<JellyEggBombImmunity>();
+
+        }
+
         private static void AdjustGHS(GameObject obj)
         {
             obj.transform.localScale = new(OBLOBBLE_SCALE, OBLOBBLE_SCALE, OBLOBBLE_SCALE);
             obj.AddComponent<ZFixer>();
         }
 
+        internal static void BumpUp()
+        {
+            var hc = HeroController.instance;
+            hc.ShroomBounce();
+
+            var rb2d = hc.gameObject.GetComponent<Rigidbody2D>();
+            var v = rb2d.velocity;
+            v.y *= 2;
+            rb2d.velocity = v;
+        }
+
         private static void PopEggBomb(GameObject obj)
         {
-            SoulOrbSpawner.SpawnSoul(obj.transform);
+            var egg = obj.GetComponent<JellyEgg>();
+            if (egg == null)
+            {
+                return;
+            }
+
+            int check = UnityEngine.Random.Range(0, 10);
+            switch (check)
+            {
+                case 0:
+                    // 1/10 to give you back a soul charge
+                    SoulOrbSpawner.SpawnSoul(obj.transform);
+                    break;
+                case 1:
+                    // 1/10 to bump you up
+                    BumpUp();
+                    break;
+            }
+
             obj.GetComponent<JellyEgg>().Invoke("Burst", 0f);
             GameObject.Destroy(obj);
         }
@@ -580,44 +666,17 @@ namespace GrubDay2026Plando.Modules
             return obj;
         }
 
-        private static string LanguageKey(int attempt) => (attempt == 5 || attempt == 20) ? $"HOARDER_{attempt}" : "HOARDER";
+        private static string LanguageKey(int attempt) => "PICKLER";
 
         private static string LanguageGetHook(string key, string sheetTitle, string orig)
         {
             return key switch
             {
-                "HOARDER_SUPER" => "The",
-                "HOARDER_MAIN" => "Pickler",
-                "HOARDER_SUB" => "",
-                "HOARDER_5_SUPER" => "You should try",
-                "HOARDER_5_MAIN" => "Spinning",
-                "HOARDER_5_SUB" => "thats a good trick",
-                "HOARDER_20_SUPER" => "Just walk forward and press the",
-                "HOARDER_20_MAIN" => "Shade Soul",
-                "HOARDER_20_SUB" => "button",
+                "PICKLER_SUPER" => "Ultra",
+                "PICKLER_MAIN" => "Pickler",
+                "PICKLER_SUB" => "",
                 _ => orig,
             };
-        }
-    }
-
-    internal static class MathExt
-    {
-        internal static float Mid(float a, float b, float c)
-        {
-            bool ab = a < b;
-            bool ac = a < c;
-            bool bc = b < c;
-
-            if (ab)
-            {
-                if (ac) return bc ? b : c;
-                else return a;
-            }
-            else
-            {
-                if (bc) return ac ? a : c;
-                else return b;
-            }
         }
     }
 }
