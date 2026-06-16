@@ -87,11 +87,38 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>$(HollowKnightRefs)/Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
+    <Reference Include="Benchwarp">
+      <HintPath>$(HollowKnightRefs)/Mods/Benchwarp/Benchwarp.dll</HintPath>
+    </Reference>
+    <Reference Include="BenchWarpFix">
+      <HintPath>$(HollowKnightRefs)/Mods/BenchWarpFix/BenchWarpFix.dll</HintPath>
+    </Reference>
+    <Reference Include="BingoUI">
+      <HintPath>$(HollowKnightRefs)/Mods/BingoUI/BingoUI.dll</HintPath>
+    </Reference>
+    <Reference Include="DeathCounter">
+      <HintPath>$(HollowKnightRefs)/Mods/DeathCounter/DeathCounter.dll</HintPath>
+    </Reference>
     <Reference Include="GalaxyCSharp">
       <HintPath>$(HollowKnightRefs)/GalaxyCSharp.dll</HintPath>
     </Reference>
+    <Reference Include="HKTool.FakeHK">
+      <HintPath>$(HollowKnightRefs)/Mods/HKTool/HKTool.FakeHK.dll</HintPath>
+    </Reference>
+    <Reference Include="HKTool2">
+      <HintPath>$(HollowKnightRefs)/Mods/HKTool/HKTool2.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>$(HollowKnightRefs)/Mods/RandoSettingsManager/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="ItemChanger">
       <HintPath>$(HollowKnightRefs)/Mods/ItemChanger/ItemChanger.dll</HintPath>
+    </Reference>
+    <Reference Include="ItemChangerDataLoader">
+      <HintPath>$(HollowKnightRefs)/Mods/ItemChangerDataLoader/ItemChangerDataLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="ItemSync">
+      <HintPath>$(HollowKnightRefs)/Mods/ItemSync/ItemSync.dll</HintPath>
     </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
       <HintPath>$(HollowKnightRefs)/MMHOOK_Assembly-CSharp.dll</HintPath>
@@ -123,8 +150,29 @@
     <Reference Include="PurenailCore">
       <HintPath>$(HollowKnightRefs)/Mods/PurenailCore/PurenailCore.dll</HintPath>
     </Reference>
+    <Reference Include="QoL">
+      <HintPath>$(HollowKnightRefs)/Mods/QoL/QoL.dll</HintPath>
+    </Reference>
+    <Reference Include="RandoMapMod">
+      <HintPath>$(HollowKnightRefs)/Mods/RandoMapMod/RandoMapMod.dll</HintPath>
+    </Reference>
+    <Reference Include="RandomizerMod">
+      <HintPath>$(HollowKnightRefs)/Mods/Randomizer 4/RandomizerMod.dll</HintPath>
+    </Reference>
+    <Reference Include="RandoSettingsManager">
+      <HintPath>$(HollowKnightRefs)/Mods/RandoSettingsManager/RandoSettingsManager.dll</HintPath>
+    </Reference>
+    <Reference Include="RandoStats">
+      <HintPath>$(HollowKnightRefs)/Mods/RandoStats/RandoStats.dll</HintPath>
+    </Reference>
+    <Reference Include="RecentItemsDisplay">
+      <HintPath>$(HollowKnightRefs)/Mods/RecentItemsDisplay/RecentItemsDisplay.dll</HintPath>
+    </Reference>
     <Reference Include="Satchel">
       <HintPath>$(HollowKnightRefs)/Mods/Satchel/Satchel.dll</HintPath>
+    </Reference>
+    <Reference Include="Scatternest">
+      <HintPath>$(HollowKnightRefs)/Mods/Scatternest/Scatternest.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition">
       <HintPath>$(HollowKnightRefs)/System.ComponentModel.Composition.dll</HintPath>

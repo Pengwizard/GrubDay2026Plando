@@ -2,3 +2,17 @@ ItemChanger
 Satchel
 ArchitectLegacy
 PurenailCore
+Benchwarp
+BenchWarpFix
+BingoUI
+DeathCounter
+Randomizer 4
+QoL
+RandoMapMod
+RandoSettingsManager
+ItemChangerDataLoader
+ItemSync
+RandoStats
+RecentItemsDisplay
+HKTool
+Scatternest
